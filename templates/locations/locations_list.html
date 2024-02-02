@@ -1,0 +1,119 @@
+{% extends "base.html" %}{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="card-title">Localizaciones</h5>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLocationForm" id="aBtn1">
+                Añadir localización
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal modal-lg fade" id="newLocationForm" tabindex="-1" aria-labelledby="newLocationFormT" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="newLocationFormT">Nueva localización</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            
+                            <div class="modal-body">
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <div class="alert alert-warning" role="alert" style="display: none" id="name_alert">
+                                            Debe ingresar un nombre
+                                        </div>
+                                        <label for="id_name">Nombre</label>
+                                        <input required class="form-control" maxlength="100" name="name" id="id_name" placeholder="Corporación Ejemplo S.A">
+                                    </div>
+                                    <div class="col">
+                                        <div class="alert alert-warning" role="alert" style="display: none" id="address_alert">
+                                            Debe ingresar una direccion
+                                        </div>
+                                        <label for="id_address1">Dirección</label>
+                                        <input required class="form-control" maxlength="100" name="address1" id="id_address1" placeholder="Calle 0 # 00 - 00">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label for="id_address2">Complemento (Opcional)</label>
+                                        <input class="form-control" maxlength="100" name="address2" id="id_address2" placeholder="Barrio Ejemplo">
+                                    </div>
+                                    <div class="col">
+                                        <label for="id_country">País</label>
+                                        <select required class="form-select" name="country" id="id_country" onchange="getStates(this.value)">
+                                            <option value="0" selected disabled>Choose</option>
+                                            {% for country in countries %}
+                                            <option value="{{ country.co_iso_num }}">{{ country.co_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning" role="alert" style="display: none" id="city_alert">
+                                    Debe escoger país, estado y ciudad
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="id_state">Estado</label>
+                                        <select required class="form-select" name="state" id="id_state" onchange="getCities(this.value)">
+                                            <option value="0" selected disabled>Choose</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="id_city">Ciudad</label>
+                                        <select required class="form-select" name="city" id="id_city">
+                                            <option value="0" selected disabled>Choose</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" id="aBtn2" onclick="addLocation()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table" id="lotable">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">_</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for location in object_list %}
+            <tr id="loid_{{ location.lo_id }}">
+                <td id="loname_{{ location.lo_id }}">{{ location.lo_name }}</td>
+                <td id="loaddr_{{ location.lo_id }}">{{ location.lo_addrl1 }}, {{ location.lo_addrl2 }}</td>
+                <td id="locity_{{ location.lo_id }}">{{ location.ct_code.ct_name }}, {{ location.ct_code.st_code.st_name }}</td>
+                <td>
+                    <button id="uBtn_{{location.lo_id}}" class="btn btn-primary" onclick="editLocation('{{ location.lo_id }}')">Editar</button>
+                    <button id="dBtn_{{location.lo_id}}" class="btn btn-danger" onclick="delLocation('{{ location.lo_id }}')">Eliminar</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr id="loid_0">
+                <td colspan="4">Sin localizaciones</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script src="{% static 'js/locations.js' %}"></script>
+
+{% endblock %}

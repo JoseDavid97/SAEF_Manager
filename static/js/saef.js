@@ -1,0 +1,1 @@
+function btnState(btn_id, state){$("#"+btn_id).attr("disabled", !state);} // Disabling or enabling button by id
