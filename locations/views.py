@@ -17,20 +17,25 @@ def createLocation(request):
         loob = Locations.objects.create(lo_name = request.GET.get('name'),
                                         lo_addrl1 = request.GET.get('address1'),
                                         lo_addrl2 = request.GET.get('address2'),
-                                        ct_code = Cities.objects.get(ct_code = request.GET.get('city')))
+                                        ct_code = Cities.objects.get(ct_code = request.GET.get('city')),
+                                        pr_name = request.GET.get('provname'),
+                                        pr_webacc = request.GET.get('webaccess'))
 
     elif request.GET.get('action') == "edit": 
         loobQS = Locations.objects.filter(lo_id = request.GET.get('location'))
         loobQS.update(lo_name = request.GET.get('name'),
                       lo_addrl1 = request.GET.get('address1'),
                       lo_addrl2 = request.GET.get('address2'),
-                      ct_code = Cities.objects.get(ct_code = request.GET.get('city')))
+                      ct_code = Cities.objects.get(ct_code = request.GET.get('city')),
+                      pr_name = request.GET.get('provname'),
+                      pr_webacc = request.GET.get('webaccess'))
         loob = loobQS.first()
 
     data = {'id':loob.lo_id,
             'name':loob.lo_name,
             'address':f'{loob.lo_addrl1}, {loob.lo_addrl2}',
-            'city':f'{loob.ct_code.ct_name}, {loob.ct_code.st_code.st_name}'}
+            'city':f'{loob.ct_code.ct_name}, {loob.ct_code.st_code.st_name}',
+            'provider': loob.pr_name}
 
     return JsonResponse(data, status=200)
 
@@ -43,7 +48,9 @@ def getLocation(request):
             'address2': loob.lo_addrl2,
             'country': loob.ct_code.st_code.co_iso_num.co_iso_num,
             'state': str(loob.ct_code.st_code.st_code),
-            'city': str(loob.ct_code.ct_code)}
+            'city': str(loob.ct_code.ct_code),
+            'provider': loob.pr_name,
+            'webaccess': loob.pr_webacc}
 
     return JsonResponse(data, status=200)
 

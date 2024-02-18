@@ -4,7 +4,7 @@ from locations.models import Countries
 
 class Command(BaseCommand):
     help = 'Script for load countries to DB'
-    excel_path = "D:/Library/Desktop/SAEF/paises.xlsx"
+    excel_path = "D:/Library/Desktop/Projects/SAEF/paises.xlsx"
 
     def handle(self, *args, **kwargs):
         df = pd.read_excel(self.excel_path)
@@ -15,4 +15,4 @@ class Command(BaseCommand):
                                          co_iso_al3 = row.alphaiii,
                                          co_call_code = row.callcode,
                                          co_name = row.nombre)
-                print(row.nombre)
+                print(row.nombre)            

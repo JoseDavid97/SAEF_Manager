@@ -7,6 +7,7 @@ class Parameters(models.Model):
     par_value_number = models.FloatField(null = True)
     par_value_string = models.TextField(null = True)
     par_isnumber = models.BooleanField()
+    par_desc = models.CharField(max_length = 200)
 
     def getParameter(self, name):
         param = self.objects.get(par_name = name)

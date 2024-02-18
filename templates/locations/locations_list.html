@@ -18,7 +18,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="newLocationFormT">Nueva localización</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()"></button>
                             </div>
                             
                             <div class="modal-body">
@@ -56,7 +56,7 @@
                                 <div class="alert alert-warning" role="alert" style="display: none" id="city_alert">
                                     Debe escoger país, estado y ciudad
                                 </div>
-                                <div class="row">
+                                <div class="row mb-4">
                                     <div class="col">
                                         <label for="id_state">Estado</label>
                                         <select required class="form-select" name="state" id="id_state" onchange="getCities(this.value)">
@@ -70,9 +70,25 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="alert alert-warning" role="alert" style="display: none" id="provname_alert">
+                                            Debe ingresar un nombre de proveedor
+                                        </div>
+                                        <label for="id_provname">Proveedor de energía</label>
+                                        <input class="form-control" maxlength="100" name="provname" id="id_provname" placeholder="Proveedor Corp Ejemplo">
+                                    </div>
+                                    <div class="col">
+                                        <div class="alert alert-warning" role="alert" style="display: none" id="webaccess_alert">
+                                            Debe ingresar el acceso Web del proveedor
+                                        </div>
+                                        <label for="id_webaccess">Acceso portal cliente (proveedor)</label>
+                                        <input class="form-control" maxlength="200" name="webaccess" id="id_webaccess" placeholder="clients.corp.com.co">
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()">Cancelar</button>
                                 <button type="submit" class="btn btn-primary" id="aBtn2" onclick="addLocation()">Guardar</button>
                             </div>
                         </div>
@@ -87,7 +103,8 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Dirección</th>
-                <th scope="col">Ciudad</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Proveedor</th>
                 <th scope="col">_</th>
             </tr>
         </thead>
@@ -97,6 +114,7 @@
                 <td id="loname_{{ location.lo_id }}">{{ location.lo_name }}</td>
                 <td id="loaddr_{{ location.lo_id }}">{{ location.lo_addrl1 }}, {{ location.lo_addrl2 }}</td>
                 <td id="locity_{{ location.lo_id }}">{{ location.ct_code.ct_name }}, {{ location.ct_code.st_code.st_name }}</td>
+                <td id="loprov_{{ location.lo_id }}">{{ location.pr_name }}</td>
                 <td>
                     <button id="uBtn_{{location.lo_id}}" class="btn btn-primary" onclick="editLocation('{{ location.lo_id }}')">Editar</button>
                     <button id="dBtn_{{location.lo_id}}" class="btn btn-danger" onclick="delLocation('{{ location.lo_id }}')">Eliminar</button>
@@ -111,8 +129,6 @@
         </table>
     </div>
 </div>
-
-
 
 <script src="{% static 'js/locations.js' %}"></script>
 

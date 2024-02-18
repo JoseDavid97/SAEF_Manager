@@ -35,6 +35,8 @@ function addLocation(){
     const address1 = $("#id_address1").val();
     const address2 = $("#id_address2").val();
     const city = $("#id_city").val();
+    const provname = $("#id_provname").val();
+    const webaccess = $("#id_webaccess").val();
 
     if (name.length == 0){
         $('#name_alert').show();
@@ -45,6 +47,17 @@ function addLocation(){
         $('#name_alert').hide();
         $('#address_alert').hide();
         $('#city_alert').show();
+    } else if (provname.length == 0) {
+        $('#name_alert').hide();
+        $('#address_alert').hide();
+        $('#city_alert').hide();
+        $('#provname_alert').show();
+    } else if (webaccess.length == 0) {
+        $('#name_alert').hide();
+        $('#address_alert').hide();
+        $('#city_alert').hide();
+        $('#provname_alert').hide();
+        $('#webaccess_alert').show();
     } else {
         $('#aBtn1').attr("disabled", true);
         $('#uBtn_'+loid).attr('disabled', true);
@@ -53,6 +66,8 @@ function addLocation(){
         $('#name_alert').hide();
         $('#address_alert').hide();
         $('#city_alert').hide();
+        $('#provname_alert').hide();
+        $('#webaccess_alert').hide();
 
         $.ajax({
             type: 'GET',
@@ -60,6 +75,8 @@ function addLocation(){
                  "&address1="+encodeURIComponent(address1)+
                  "&address2="+encodeURIComponent(address2)+
                  "&city="+encodeURIComponent(city)+
+                 "&provname="+encodeURIComponent(provname)+
+                 "&webaccess="+encodeURIComponent(webaccess)+
                  "&action="+encodeURIComponent(action)+
                  "&location="+encodeURIComponent(loid),
                  success: function (response) {
@@ -68,7 +85,8 @@ function addLocation(){
                         $('#loid_'+response['id']).append(`<td id="loname_${response['id']}">${response['name']}</td>
                                                         <td id="loaddr_${response['id']}">${response['address']}</td>
                                                         <td id="locity_${response['id']}">${response['city']}</td>
-                                                        <td><button class="btn btn-primary" onclick="editLocation('${response['id']}')">Editar</button>
+                                                        <td id="loprov_${response['id']}">${response['provider']}</td>
+                                                        <td><button id="uBtn_${response['id']}" class="btn btn-primary" onclick="editLocation('${response['id']}')">Editar</button>
                                                             <button id="dBtn_${response['id']}" class="btn btn-danger" onclick="delLocation('${response['id']}')">Eliminar</button>
                                                         </td>`);
                             
@@ -77,20 +95,16 @@ function addLocation(){
                         $("#loname_"+loid).html(response['name']);
                         $("#loaddr_"+loid).html(response['address']);
                         $("#locity_"+loid).html(response['city']);
+                        $("#loprov_"+loid).html(response['provider']);
+                        action = "add";
                     }
-                    action = "add";
                     $('#aBtn1').attr("disabled", false);
                     $('#uBtn_'+loid).attr('disabled', false);
                     $('#dBtn_'+loid).attr('disabled', false);
+
+                    clearForm();
                 }
         });
-
-        $("#id_name").val("");
-        $("#id_address1").val("");
-        $("#id_address2").val("");
-        $("#id_country").val("0");
-        $("#id_state").val("0");
-        $("#id_city").val("0");
     }
 
 }
@@ -108,6 +122,8 @@ function editLocation(lo_id){
                 $("#id_address1").val(response["address1"]);
                 $("#id_address2").val(response["address2"]);
                 $("#id_country").val(response["country"]);
+                $("#id_provname").val(response["provider"]);
+                $("#id_webaccess").val(response["webaccess"]);
 
                 getStates(response["country"]);
 
@@ -153,4 +169,15 @@ function delLocation(lo_id){
             }
         });
     }
+}
+
+function clearForm(){
+    $("#id_name").val("");
+    $("#id_address1").val("");
+    $("#id_address2").val("");
+    $("#id_country").val("0");
+    $("#id_state").val("0");
+    $("#id_city").val("0");
+    $("#id_provname").val("");
+    $("#id_webaccess").val("");
 }
