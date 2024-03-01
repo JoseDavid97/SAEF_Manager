@@ -15,7 +15,7 @@ class Command(BaseCommand):
         parser.add_argument("-d", '--date', help='Optional date')
 
     def handle(self, *args, **kwargs):
-        lo_id = kwargs['provider'][0]
+        lo_id = kwargs['location'][0]
         loobQS = Locations.objects.filter(lo_id = lo_id)
 
         if loobQS.exists():

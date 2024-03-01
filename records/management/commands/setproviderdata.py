@@ -14,13 +14,13 @@ class Command(BaseCommand):
     initCol = 2
     
     def add_arguments(self, parser): 
-        parser.add_argument("provider", nargs=1, type=int, help='Iternal provider ID')
+        parser.add_argument("location", nargs=1, type=int, help='Iternal location ID')
         parser.add_argument("-d", '--date', help='Optional date')
         parser.add_argument("--billing",action="store_true", help="set billing")
         parser.add_argument("--consuption",action="store_true", help="set consuption")
 
     def handle(self, *args, **kwargs):
-        lo_id = kwargs['provider'][0]
+        lo_id = kwargs['location'][0]
         loobQS = Locations.objects.filter(lo_id = lo_id)
 
         if loobQS.exists():
@@ -69,7 +69,7 @@ class Command(BaseCommand):
                                 if val.exists():
                                     exec(f'val.update({var} = row[columns[hAux]])')
                                 else:
-                                    exec(f"""Consup_Master.objects.create(lo_id = prob,
+                                    exec(f"""Consup_Master.objects.create(lo_id = loob,
                                                                           pc_date = recDate,
                                                                           pc_hour = hour,
                                                                           {var} = row[columns[hAux]])""")

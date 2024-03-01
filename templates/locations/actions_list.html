@@ -1,0 +1,43 @@
+{% extends "base.html" %}{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Acciones automáticas sobre portal <strong>{{location.pr_webacc}}</strong> para <strong>{{location.lo_name}}, {{location.ct_code.ct_name}}</strong></h5>
+    </div>
+    <div class="card-body">
+        {% for action in actions %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="card-title">{{ action.actionType.at_desc }}</h6>
+                <button class="btn btn-primary" onclick="editEvents('{{request.GET.location}}','{{action.actionType.at_id}}')">{% if action.check %}Editar eventos{% else %}Añadir eventos{% endif %}</button>
+            </div>
+            <div class="card-body">
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal modal-lg fade" id="actionModalForm" tabindex="-1" aria-labelledby="actionModalFormT" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="actionModalFormT">Formulario de acciones</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="aBtn2" onclick="addAction()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/actions.js' %}"></script>
+
+{% endblock %}

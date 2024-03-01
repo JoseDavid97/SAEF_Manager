@@ -17,7 +17,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="newLocationFormT">Nueva localización</h1>
+                                <h1 class="modal-title fs-5" id="newLocationFormT">Formulario de localizaciones</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()"></button>
                             </div>
                             
@@ -89,7 +89,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()">Cancelar</button>
-                                <button type="submit" class="btn btn-primary" id="aBtn2" onclick="addLocation()">Guardar</button>
+                                <button type="button" class="btn btn-primary" id="aBtn2" onclick="addLocation()">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -117,6 +117,7 @@
                 <td id="loprov_{{ location.lo_id }}">{{ location.pr_name }}</td>
                 <td>
                     <button id="uBtn_{{location.lo_id}}" class="btn btn-primary" onclick="editLocation('{{ location.lo_id }}')">Editar</button>
+                    <a href="/locations/get_actions/?location={{location.lo_id}}" type="button" class="btn btn-primary" id="eAcBtn">Acciones</a>
                     <button id="dBtn_{{location.lo_id}}" class="btn btn-danger" onclick="delLocation('{{ location.lo_id }}')">Eliminar</button>
                 </td>
             </tr>

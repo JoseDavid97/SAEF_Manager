@@ -1,6 +1,8 @@
 from django.http.response import JsonResponse
+from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Locations, Countries, States, Cities
+from providers.models import ActionMTypes, ActionsDetail
 
 class showLocations(ListView):
     model = Locations
@@ -71,3 +73,19 @@ def getCities(request):
                        for city in Cities.objects.filter(st_code = request.GET.get('state')).order_by('ct_name')]}
     
     return JsonResponse(data, status=200)
+
+def actionsView(request):
+
+    context = {}
+    loob = Locations.objects.get(lo_id = request.GET.get('location'))
+    acTyMa = ActionMTypes.objects.all().order_by('at_id')
+
+    actions = []
+    for atm in acTyMa:
+        adSet = ActionsDetail.objects.filter(am_id__lc_id = loob, am_id__am_type = atm)
+        actions.append({'actionType':atm, 'actionSet':adSet})
+
+    context['location'] = loob
+    context['actions'] = actions
+    
+    return render(request, 'locations/actions_list.html', context)
