@@ -3,61 +3,57 @@
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <div class="row">
-            <div class="col-6">
-                <h5 class="card-title">Parámetros</h5>
-            </div>
-            <div class="col-6">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newParameterForm" id="aBtn1">
+        <h5 class="card-title">
+            Parámetros
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#newParameterForm" id="aBtn1">
                 Añadir parámetro
-                </button>
-                
-                <!-- Modal -->
-                <div class="modal modal-lg fade" id="newParameterForm" tabindex="-1" aria-labelledby="newParameterFormT" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="newParameterFormT">Formulario de parámetros</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()"></button>
+            </button>
+        </h5>
+           
+        <!-- Modal -->
+        <div class="modal modal-lg fade" id="newParameterForm" tabindex="-1" aria-labelledby="newParameterFormT" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="newParameterFormT">Formulario de parámetros</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <div class="alert alert-warning" role="alert" style="display: none" id="name_alert">
+                                    Debe ingresar un nombre
+                                </div>
+                                <label for="id_name">Nombre</label>
+                                <input class="form-control" maxlength="50" name="name" id="id_name" placeholder="ex_enel_webpage">
                             </div>
-                            
-                            <div class="modal-body">
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <div class="alert alert-warning" role="alert" style="display: none" id="name_alert">
-                                            Debe ingresar un nombre
-                                        </div>
-                                        <label for="id_name">Nombre</label>
-                                        <input class="form-control" maxlength="50" name="name" id="id_name" placeholder="ex_enel_webpage">
-                                    </div>
-                                    <div class="col">
-                                        <label for="id_isnumber">Tipo de parámetro</label>
-                                        <select required class="form-select" name="isnumber" id="id_isnumber" onchange="changeInput(this.value)">
-                                            <option value="0">Caracteres</option>
-                                            <option value="1">Numérico</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <div class="alert alert-warning" role="alert" style="display: none" id="value_alert">
-                                        Debe ingresar un valor
-                                    </div>
-                                    <label for="id_address1">Valor</label>
-                                    <input class="form-control" name="value" id="id_value" placeholder="enelweb.com">
-                                </div>
-                                <div class="form-group">
-                                    <div class="alert alert-warning" role="alert" style="display: none" id="desc_alert">
-                                        Debe ingresar una descripción
-                                    </div>
-                                    <label for="id_name">Descripcion</label>
-                                    <input class="form-control" name="desc" id="id_desc">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()">Cancelar</button>
-                                <button type="submit" class="btn btn-primary" id="aBtn2" onclick="addParameter()">Guardar</button>
+                            <div class="col">
+                                <label for="id_isnumber">Tipo de parámetro</label>
+                                <select required class="form-select" name="isnumber" id="id_isnumber" onchange="changeInput(this.value)">
+                                    <option value="0">Caracteres</option>
+                                    <option value="1">Numérico</option>
+                                </select>
                             </div>
                         </div>
+                        <div class="form-group mb-4">
+                            <div class="alert alert-warning" role="alert" style="display: none" id="value_alert">
+                                Debe ingresar un valor
+                            </div>
+                            <label for="id_address1">Valor</label>
+                            <input class="form-control" name="value" id="id_value" placeholder="enelweb.com">
+                        </div>
+                        <div class="form-group">
+                            <div class="alert alert-warning" role="alert" style="display: none" id="desc_alert">
+                                Debe ingresar una descripción
+                            </div>
+                            <label for="id_name">Descripcion</label>
+                            <input class="form-control" name="desc" id="id_desc">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="aBtn2" onclick="addParameter()">Guardar</button>
                     </div>
                 </div>
             </div>

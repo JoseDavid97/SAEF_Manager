@@ -9,11 +9,33 @@
         {% for action in actions %}
         <div class="card mb-4">
             <div class="card-header">
-                <h6 class="card-title">{{ action.actionType.at_desc }}</h6>
-                <button class="btn btn-primary" onclick="editEvents('{{request.GET.location}}','{{action.actionType.at_id}}')">{% if action.check %}Editar eventos{% else %}Añadir eventos{% endif %}</button>
+                <h6 class="card-title">{{ action.actionType.at_desc }}<button class="btn btn-primary float-end" onclick="editEvents('{{request.GET.location}}','{{action.actionType.at_id}}')">{% if action.check %}Editar eventos{% else %}Añadir eventos{% endif %}</button></h6>
             </div>
             <div class="card-body">
-                
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tipo de evento</th>
+                            <th scope="col">Acceso por "id"</th>
+                            <th scope="col">Acceso por "name"</th>
+                            <th scope="col">Acceso por "xpath"</th>
+                            <th scope="col">Valor del campo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in action.actionSet %}
+                        <tr>
+                            <th scope="row">{{ event.ad_seq }}</th>
+                            <td>{{ event.ad_type.at_desc }}</td>
+                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_id }}{% endif %}</td>
+                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_name }}{% endif %}</td>
+                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_xp }}{% endif %}</td>
+                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_val }}{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
         {% endfor %}

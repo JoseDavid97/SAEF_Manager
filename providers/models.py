@@ -42,9 +42,3 @@ class ActionsDetail(models.Model):
     ad_sc_name = models.CharField(max_length = 50, null = True)
     ad_sc_xp = models.CharField(max_length = 200, null = True)
     ad_sc_val = models.CharField(max_length = 200, null = True)
-
-hola = {"pc_kWh":"Activa",
-        "pc_kVARhL":"Reactiva Inductiva",
-        "pc_kVARhC":"Reactiva Capacitiva",
-        "pc_kVARhP":"Reactiva Inductiva Penalizada",
-        "pc_pf":"Factor de Potencia"}

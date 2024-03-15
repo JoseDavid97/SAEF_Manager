@@ -78,14 +78,10 @@ def actionsView(request):
 
     context = {}
     loob = Locations.objects.get(lo_id = request.GET.get('location'))
-    acTyMa = ActionMTypes.objects.all().order_by('at_id')
-
-    actions = []
-    for atm in acTyMa:
-        adSet = ActionsDetail.objects.filter(am_id__lc_id = loob, am_id__am_type = atm)
-        actions.append({'actionType':atm, 'actionSet':adSet})
+    atmQS = ActionMTypes.objects.all().order_by('at_id')
+    adQS = ActionsDetail.objects.filter(am_id__lo_id = loob)
 
     context['location'] = loob
-    context['actions'] = actions
+    context['actions'] = [{'actionType':atm, 'actionSet':adQS.filter(am_id__am_type = atm), 'check':adQS.filter(am_id__am_type = atm).exists()} for atm in atmQS]
     
     return render(request, 'locations/actions_list.html', context)

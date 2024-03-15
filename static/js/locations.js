@@ -62,7 +62,9 @@ function addLocation(){
         $('#aBtn1').attr("disabled", true);
         $('#uBtn_'+loid).attr('disabled', true);
         $('#dBtn_'+loid).attr('disabled', true);
+        
         $('#newLocationForm').modal('toggle');
+        
         $('#name_alert').hide();
         $('#address_alert').hide();
         $('#city_alert').hide();
@@ -87,6 +89,7 @@ function addLocation(){
                                                         <td id="locity_${response['id']}">${response['city']}</td>
                                                         <td id="loprov_${response['id']}">${response['provider']}</td>
                                                         <td><button id="uBtn_${response['id']}" class="btn btn-primary" onclick="editLocation('${response['id']}')">Editar</button>
+                                                            <a id="atBtn_${response['id']}" href="/locations/get_actions/?location=${response['id']}" type="button" class="btn btn-primary" id="eAcBtn">Acciones</a>
                                                             <button id="dBtn_${response['id']}" class="btn btn-danger" onclick="delLocation('${response['id']}')">Eliminar</button>
                                                         </td>`);
                             
@@ -100,6 +103,7 @@ function addLocation(){
                     }
                     $('#aBtn1').attr("disabled", false);
                     $('#uBtn_'+loid).attr('disabled', false);
+                    $('#atBtn_'+loid).attr('disabled', false);
                     $('#dBtn_'+loid).attr('disabled', false);
 
                     clearForm();
@@ -156,6 +160,7 @@ function delLocation(lo_id){
     
     if (result == "ELIMINAR"){
         $('#uBtn_'+lo_id).attr('disabled', true);
+        $('#atBtn_'+loid).attr('disabled', true);
         $('#dBtn_'+lo_id).attr('disabled', true);
         $.ajax({
             type: 'GET',

@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('accessControl.urls')),
     path('locations/', include('locations.urls')),
     path('parameters/', include('parameters.urls')),
+    path('meters/', include('consumers.urls')),
     path('admin/', admin.site.urls),
 ]
