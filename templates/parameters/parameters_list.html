@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table" id="lotable">
+        <table class="table" id="partable">
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
@@ -76,8 +76,8 @@
                 <td id="parvalue_{{ param.par_id }}">{{ param.par_value }}</td>
                 <td id="pardesc_{{ param.par_id }}">{{ param.par_desc }}</td>
                 <td>
-                    <button id="uBtn_{{param.par_id}}" class="btn btn-primary" onclick="editLocation('{{ param.par_id }}')">Editar</button>
-                    <button id="dBtn_{{param.par_id}}" class="btn btn-danger" onclick="delLocation('{{ param.par_id }}')">Eliminar</button>
+                    <button id="uBtn_{{param.par_id}}" class="btn btn-primary" onclick="editParameter('{{ param.par_id }}')">Editar</button>
+                    <button id="dBtn_{{param.par_id}}" class="btn btn-danger" onclick="delParameter('{{ param.par_id }}')">Eliminar</button>
                 </td>
             </tr>
             {% empty %}

@@ -16,15 +16,15 @@ function addMeter(){
         $('#name_alert').hide();
         $('#url_alert').show();
     } else {
+        $('#location_alert').hide();
+        $('#name_alert').hide();
+        $('#url_alert').hide();
+
         $('#aBtn1').attr("disabled", true);
         $('#uBtn_'+mtid).attr('disabled', true);
         $('#dBtn_'+mtid).attr('disabled', true);
 
         $('#newMeterForm').modal('toggle');
-
-        $('#location_alert').hide();
-        $('#name_alert').hide();
-        $('#url_alert').hide();
 
         $.ajax({
             type: 'GET',
@@ -35,7 +35,6 @@ function addMeter(){
                  "&meter="+encodeURIComponent(mtid),
                  success: function (response) {
                     if (action == "add"){
-                        console.log(response);
                         $('#metable > tbody:last-child').append(`<tr id="mtid_${response['id']}"></tr>`);
                         $('#mtid_'+response['id']).append(`<td id="mtloc_${response['id']}">${response['location']}</td>
                                                            <td id="mtname_${response['id']}">${response['name']}</td>

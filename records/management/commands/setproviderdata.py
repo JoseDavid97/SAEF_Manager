@@ -4,7 +4,7 @@ from os.path import join
 from datetime import date
 from django.core.management.base import BaseCommand, CommandError
 from records.models import Consup_Master
-from providers.models import Parameters
+from parameters.models import Parameters
 from locations.models import Locations
 from SAEF_Manager.settings import BASE_DIR
 
@@ -45,8 +45,8 @@ class Command(BaseCommand):
                         M = 12
                         Y = Y - 1
 
-                fileNameFormat = Parameters.objects.get(par_name = 'consuption_filename').par_value_string
-                fileSheets = json.loads(Parameters.objects.get(par_name = 'consuptionfile_sheets').par_value_string)
+                fileNameFormat = Parameters.objects.get(par_name = 'consuption_filename').par_value
+                fileSheets = json.loads(Parameters.objects.get(par_name = 'consuptionfile_sheets').par_value)
                 file = join(BASE_DIR, 'downloads', fileNameFormat.format(Y, M, Y, M))
 
                 for var, sheet in fileSheets.items():

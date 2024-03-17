@@ -1,22 +1,6 @@
 from django.db import models
 from locations.models import Locations
 
-class Parameters(models.Model):
-    par_id = models.AutoField(primary_key = True)
-    lc_id = models.ForeignKey(Locations, on_delete = models.CASCADE)
-    par_name = models.CharField(max_length = 50, unique=True)
-    par_value_number = models.FloatField(null = True)
-    par_value_string = models.TextField(null = True)
-    par_isnumber = models.BooleanField()
-    par_desc = models.CharField(max_length = 200)
-
-    def getParameter(self, name):
-        param = self.objects.get(par_name = name)
-        if param.par_isnumber:
-            return param.par_value_number
-        else:
-            return param.par_value_string
-
 class ActionDTypes(models.Model):
     at_id = models.AutoField(primary_key = True)
     at_name = models.CharField(max_length = 50)
