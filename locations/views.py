@@ -85,3 +85,20 @@ def actionsView(request):
     context['actions'] = [{'actionType':atm, 'actionSet':adQS.filter(am_id__am_type = atm), 'check':adQS.filter(am_id__am_type = atm).exists()} for atm in atmQS]
     
     return render(request, 'locations/actions_list.html', context)
+
+def eventsView(request):
+
+    events = ActionsDetail.objects.filter(am_id__lo_id = request.GET.get('provider'), am_id__am_type = request.GET.get('action')).order_by('ad_seq')
+    data = []
+    for event in events:
+        data.append({
+            'seq': event.ad_seq,
+            'type_id': event.ad_type.at_id,
+            'type_name': event.ad_type.at_desc,
+            'sc_id': event.ad_sc_id if event.ad_sc_id else '',
+            'sc_name': event.ad_sc_name if event.ad_sc_name else '',
+            'sc_xp': event.ad_sc_xp if event.ad_sc_xp else '',
+            'sc_val': event.ad_sc_val if event.ad_sc_val else ''
+        })
+
+    return JsonResponse(data, status=200, safe=False)

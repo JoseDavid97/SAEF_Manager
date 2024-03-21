@@ -10,4 +10,5 @@ urlpatterns = [
     path("get_states/", views.getStates, name="get_states"),
     path("get_cities/", views.getCities, name="get_cities"),
     path("get_actions/", views.actionsView, name="get_actions"),
+    path("get_events/", views.eventsView, name="get_events"),
 ]

@@ -29,9 +29,9 @@
                             <th scope="row">{{ event.ad_seq }}</th>
                             <td>{{ event.ad_type.at_desc }}</td>
                             <td>{% if event.ad_sc_id %}{{ event.ad_sc_id }}{% endif %}</td>
-                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_name }}{% endif %}</td>
-                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_xp }}{% endif %}</td>
-                            <td>{% if event.ad_sc_id %}{{ event.ad_sc_val }}{% endif %}</td>
+                            <td>{% if event.ad_sc_name %}{{ event.ad_sc_name }}{% endif %}</td>
+                            <td>{% if event.ad_sc_xp %}{{ event.ad_sc_xp }}{% endif %}</td>
+                            <td>{% if event.ad_sc_val %}{{ event.ad_sc_val }}{% endif %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

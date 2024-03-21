@@ -47,8 +47,8 @@ function addParameter(){
                             
                         $("#parid_0").remove();
                     } else if (action == "edit"){
-                        $("#parname_"+parid).html(response['location']);
-                        $("#parvalue_"+parid).html(response['name']);
+                        $("#parname_"+parid).html(response['name']);
+                        $("#parvalue_"+parid).html(response['value']);
                         $("#pardesc_"+parid).html(response['desc']);
                         action = "add";
                     }
@@ -59,6 +59,43 @@ function addParameter(){
 
                     clearForm();
                 }
+        });
+    }
+}
+
+function editParameter(par_id){
+    action = "edit";
+    parid = par_id;
+    $.ajax({
+        type: 'GET',
+        url: "/parameters/detail/?parameter="+par_id,
+             success: function (response) {
+                $('#newParameterForm').modal('toggle');
+                $("#id_name").val(response["name"]);
+                $("#id_isnumber").val(+response["isnumber"]);
+                $("#id_value").val(response["value"]);
+                $("#id_desc").val(response["desc"]);
+            }
+    });
+}
+
+
+function delParameter(par_id){
+    const result = prompt("¿Realmente desea eliminar el parámetro?, para continuar escriba \"ELIMINAR\"", "");
+    
+    if (result == "ELIMINAR"){
+        $('#uBtn_'+par_id).attr('disabled', true);
+        $('#dBtn_'+par_id).attr('disabled', true);
+        $.ajax({
+            type: 'GET',
+            url: "/parameters/delete/?parameter="+par_id,
+            success: function (response) {
+                $("#parid_"+par_id).remove();
+
+                if ($('#partable tbody tr').length == 0){
+                    $('#partable > tbody:last-child').append(`<tr id="parid_0"><td colspan="4">Sin parámetros</td></tr>`);
+                }
+            }
         });
     }
 }

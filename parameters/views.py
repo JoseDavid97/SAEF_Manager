@@ -31,9 +31,18 @@ def createParameter(request):
     return JsonResponse(data, status=200)
 
 def getParameter(request):
-
+    
+    parob = Parameters.objects.get(par_id = request.GET.get('parameter'))
+    
+    data = {'name': parob.par_name,
+            'value': parob.par_value,
+            'isnumber': parob.par_isnumber,
+            'desc': parob.par_desc}
+    
     return JsonResponse(data, status=200)
 
 def deleteParameter(request):
+
+    Parameters.objects.filter(par_id = request.GET.get('parameter')).delete()
 
     return JsonResponse({'status':True}, status=200)
